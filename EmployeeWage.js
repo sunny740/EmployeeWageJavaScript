@@ -10,35 +10,38 @@ else
     console.log("Employee is Absent");
 }
 
-// ---------------UC5
+// ---------------UC6
 
-const PartTime = 1;
-const FullTime = 2;
-const PartTimeHours = 4;
-const FullTimeHours = 8;
-const WageperHour = 20;
-const WorkingDays = 20;
-const MaxHours_In_A_Month = 160;
+let empDailyWageMap = new Map();
+let empDailyHrsMap = new Map();
 
-function CalculateDailyWage(CheckEmp)
-{
-    switch(CheckEmp)
-{
-    case PartTime:
-        return PartTimeHours; 
-    case FullTime:
-        return FullTimeHours;
-    default:
-        return 0;
+function getWorkingHours(empCheck){
+    switch(empCheck)
+    {
+        case Is_Parttime:
+            return Parttime_Hours;
+            
+        case Is_Fulltime:
+            return Fulltime_Hours;
+        default:
+            return 0;
+    }
 }
-}
-let TotalEmpHrs = 0;
-let TotalWorkingDays = 0;
-while(TotalEmpHrs <= MaxHours_In_A_Month && TotalWorkingDays < WorkingDays)
+function calculateDailWage(empHrs)
+ {
+   return empHrs*Wage_Per_Hours;
+ }
+
+let empDailyWageArr = new Array();
+while(TotalEmpHrs<=Max_Hrs_In_Month && TotalWorkingDays< Number_Of_WorkingDay)
 {
     TotalWorkingDays++;
-    let CheckEmp = Math.floor(Math.random() * 10) % 3;
-    TotalEmpHrs += CalculateDailyWage(CheckEmp);
+    let empCheck = Math.floor(Math.random()*10)%3;
+    let empHrs = getWorkingHours(empCheck);
+    TotalEmpHrs+=empHrs;
+    empDailyWageArr.push(calculateDailWage(empHrs));
+    empDailyHrsMap.set(TotalWorkingDays, empHrs);
+    empDailyHrsMap.set(TotalWorkingDays, calculateDailWage(empHrs));
 }
-let EmpWage = TotalEmpHrs * WageperHour;
-console.log("Total Days: " + TotalWorkingDays + "\nTotal Hours: " + TotalEmpHrs +"\nEmployee Wage is: " + EmpWage);
+let EmpWages = calculateDailWage(TotalEmpHrs);
+console.log("Total Days: "+TotalWorkingDays+" Total hours: "+TotalEmpHrs+" Emp wage: "+EmpWage);
