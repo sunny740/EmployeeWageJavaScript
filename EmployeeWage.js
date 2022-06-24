@@ -10,25 +10,26 @@ else
     console.log("Employee is Absent");
 }
 
-//UC9 Arrow function
+//UC10 Creation
+let totalEmpHrs=0;
+let totalWorkingDays=0;
+let empDailyHrsAndWageArr = new Array();
+while(totalEmpHrs<= Max_Hrs_In_Month && totalWorkingDays< Number_Of_WorkingDay)
 
-const findTotal = (totalVal,dailyVal) =>{
-    return totalVal+dailyVal;
-  }
-  
-  let totalHours=Array.from(empDailyHrsMap.values()).reduce(findTotal,0);
-  let totalSalary = empDailyWageArr.filter(dailyWage => dailyWage>0).reduce(findTotal,0);
-  console.log("empwage with arrow "+ "Total Hours: "+totalHours+" total wages: "+ totalSalary);
-  
-  let nonWorkingDays = new Array();
-  let partWorkingDays = new Array();
-  let fullWorkingDays = new Array();
-  empDailyHrsMap.forEach((value, key, map) =>{
-      if(value==8) fullWorkingDays.push(key);
-      else if(value==4) partWorkingDays.push(key);
-      else nonWorkingDays.push(key);
-  });
-  
-  console.log("full working days: "+fullWorkingDays);
-  console.log("Part working days: "+partWorkingDays);
-  console.log("Non working days: "+nonWorkingDays);
+{
+totalWorkingDays++;
+let empCheck = Math.floor(Math.random()*10)%3;
+let empHrs = getWorkingHours(empCheck);
+totalEmpHrs+=empHrs;
+empDailyHrsAndWageArr.push(
+    {
+        dayNum:totalWorkingDays,
+        dailyHours:empHrs,
+        dailyWage:calculateDailWage(empHrs),
+        toString(){
+            return '\nDay'+this.dayNum+' working hour is '+this.dailyHours+' And Wage earned '+this.dailyWage
+        },
+    }
+);
+}
+console.log("showing daily hours worked and wage earned: "+empDailyHrsAndWageArr);
